@@ -1,0 +1,97 @@
+#body{
+    background-color: #FFFFFF;
+}
+#banner_border{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    align-content: center;
+}
+#banner_mask{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: #0000005F;
+    background-image: url("../resource/images/mask.png");
+    opacity: 50%;
+}
+#banner_image{
+    position: relative;
+    left: -25%;
+    top: -10%;
+    transition: 10s;
+}
+#banner_border:hover #banner_image{
+    left: -40%;
+    top: -22.5%;
+    height: 180%;
+}
+#banner_text
+{
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: calc(37.5% - 48px);
+    bottom: 0%;
+}
+#banner_darkMask
+{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    box-shadow: inset 0px 0px 300px 0px #000000;
+}
+#banner_title
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    font-family: '_Montserrat Thin';
+    font-size: 96px;
+    color: white;
+    user-select: none;
+}
+#banner_subtitle
+{
+    position: absolute;
+    top: -12px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    font-family: '_Montserrat Thin';
+    font-size: 36px;
+    color: white;
+    user-select: none;
+}
+#banner_button
+{
+    position: absolute;
+    top: 150px;
+    left: calc(50% - 180px);
+    width: 360px;
+    height: 60px;
+    border-radius: 32px;
+    border: 1px solid white;
+    background-color: #00000000;
+    text-align: center;
+    font-family: '_Montserrat Thin';
+    font-size: 36px;
+    color: white;
+    user-select: none;
+    cursor: pointer;
+    transition: 0.2s;
+    mix-blend-mode: screen;
+}
+#banner_button:hover{
+    background-color: white;
+    color: black;
+}

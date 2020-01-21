@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="style/universal.css">
+    <script src="scripts/universal.js"></script>
+</head>
+<body id="body">
+
+    <div id="sideMenu">
+        <div id="sideMenu_top">
+            <img id="sideMenu_image" src="resource/images/sidetop.png" width="100%">
+            <div id="sideMenu_topMask"></div>
+            <div id="sideMenu_picture">
+                <img src="resource/images/a.png" width="100%">
+            </div>
+            <div id="sideMenu_name">Isoheptane</div>
+        </div>
+        <div id="sideMenu_menu">
+            <div class="sideMenu_elements" onclick="jump('introduction.html')"">
+                <div class="sideMenu_ele_bg">
+                    <div class="sideMenu_ele_text">
+                        Introduction
+                    </div>
+                </div>
+            </div>
+            <div class="sideMenu_elements" onclick="jump('blog.html')">
+                <div class="sideMenu_ele_bg">
+                    <div class="sideMenu_ele_text">
+                        Blog
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="postbox">
+            <h1 class="postbox_title" onclick="jump('pages/article/htmlstatics.html')">HTML静态网页效果测试</h1>
+            <div class="postbox_content">
+                我真的不知道在这里写什么了<br>
+                要不就在这里摸一会鱼也可以w<br>
+                写这么多应该够了吧w<br>
+            </div>
+            <div class="postbox_tag">
+                <p class="postbox_tag_date">
+                    2020/1/21
+                </p>
+                <p class="postbox_tag_tags">
+                    <span class="postbox_tag_t" onmouseup="jump('pages/cat/sss.html')">#random</span>
+                    <span class="postbox_tag_t">#span</span>
+                    <span class="postbox_tag_t">#testing</span>
+                </p>
+            </div>
+            <div class="postbox_anim"></div>
+        </div>
+        
+        <div class="postbox">
+            <h1 class="postbox_title" onclick="jump('pages/article/htmlstatics.html')">CSS实现方式</h1>
+            <div class="postbox_content">
+                我还是不知道在这里写什么<br>
+                继续摸鱼吧w<br>
+                上面这些都是HTML+CSS实现的<br>
+            </div>
+            <div class="postbox_tag">
+                <p class="postbox_tag_date">
+                    2020/1/21
+                </p>
+                <p class="postbox_tag_tags">
+                    <span class="postbox_tag_t" onmouseup="jump('pages/cat/sss.html')">#mole</span>
+                    <span class="postbox_tag_t">#css</span>
+                    <span class="postbox_tag_t">#testing</span>
+                </p>
+            </div>
+            <div class="postbox_anim"></div>
+        </div>
+
+        <div class="postbox">
+            <h1 class="postbox_title" onclick="jump('pages/article/htmlstatics.html')">页面大概就是这样了</h1>
+            <div class="postbox_content">
+                可能会改<br>
+                也可能会推到重来<br>
+                大概是这样吧<br>
+            </div>
+            <div class="postbox_tag">
+                <p class="postbox_tag_date">
+                    2020/1/21
+                </p>
+                <p class="postbox_tag_tags">
+                    <span class="postbox_tag_t" onmouseup="jump('pages/cat/sss.html')">#yoooo</span>
+                    <span class="postbox_tag_t">#page</span>
+                    <span class="postbox_tag_t">#testing</span>
+                </p>
+            </div>
+            <div class="postbox_anim"></div>
+        </div>
+
+        <div id="content_end">
+            There is no more posts.
+        </div>
+    </div>
+
+</body>
