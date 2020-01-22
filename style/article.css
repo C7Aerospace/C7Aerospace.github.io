@@ -1,0 +1,96 @@
+.title{
+    color: #3b7261;
+    font-size: 72px;
+    padding-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-shadow: 0px 0px 5px #0000003f;
+}
+.subtitle{
+    color: #3f3f3f;
+    font-size: 28px;
+    padding-left: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-shadow: 0px 0px 5px #0000003f;
+}
+.article{
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 18px;
+    color: #3f3f3f;
+}
+p{
+    color: #3f3f3f;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-indent: 18px;
+}
+.reference{
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    height: 80px;
+    background-color: #0000000f;
+    color: #5f5f5f;
+    font-size: 24px;
+    font-style: italic;
+}
+hr{
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+.darken{
+    color: #9f9f9f;
+}
+.red{
+    color: #bf3f3f;
+}
+.green{
+    color: #3fbf7f;
+}
+.blue{
+    color: #3f7fbf;
+}
+.black{
+    color: #1f1f1f;
+}
+.italic{
+    font-style: italic;
+}
+.picture{
+    box-shadow: 0px 0px 5px 2px #0000003f;
+}
+a,a:link,a:visited,a:active{
+    color: #3b7261;
+    text-decoration: none;
+    transition: 0.05s;
+}
+a:hover{
+    color: #41c199;
+}
+#footer{
+    margin-top: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 24px;
+    color: #0000005f;
+}
+#tags{
+    height: 50px;
+    text-align: left;
+    font-size: 18px;
+    margin-bottom: 50px;
+    padding-left: 80px;
+}
+.tag{
+    color: #3b7261;
+    transition: 0.05s;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.tag:hover{
+    color: #41c199;
+}
