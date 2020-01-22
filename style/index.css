@@ -90,6 +90,7 @@
     cursor: pointer;
     transition: 0.2s;
     mix-blend-mode: screen;
+    line-height: 60px;
 }
 #banner_button:hover{
     background-color: white;
