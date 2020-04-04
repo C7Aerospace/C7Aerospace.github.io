@@ -1,0 +1,34 @@
+@font-face{
+    font-family: '_Noto Mono';
+    src:url("../resource/fonts/NotoMono-Regular.ttf");
+}
+
+.codes
+{
+    font-family: '_Noto Mono';
+}
+.codes::selection{
+    background-color: #FFFFFF1F;
+    mix-blend-mode: screen;
+}
+
+.keyword
+{
+    color: #5fafff;
+}
+.class
+{
+    color: #5fff7f;
+}
+.string
+{
+    color: #df8f6f;
+}
+.comments
+{
+    color: #5f9f2f;
+}
+.num
+{
+    color: #dfff7f;
+}

@@ -27,6 +27,7 @@ p{
     margin-top: 10px;
     margin-bottom: 10px;
     text-indent: 18px;
+    line-height: 26px;
 }
 .reference{
     margin-left: 50px;
@@ -93,4 +94,46 @@ a:hover{
 }
 .tag:hover{
     color: #41c199;
+}
+
+@font-face{
+    font-family: '_Noto Mono';
+    src:url("../resource/fonts/NotoMono-Regular.ttf");
+}
+
+pre{
+    font-size: 16px;
+    font-family: '_Noto Mono';
+    background-color: #1f1f1f;
+    border-radius: 5px;
+    color: #ffffff;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    box-shadow: #0000007f 0px 0px 10px;
+    overflow: auto;
+}
+pre::selection{
+    background-color: #FFFFFF1F;
+    mix-blend-mode: screen;
+}
+.code{
+    font-size: 16px;
+    font-family: '_Noto Mono';
+    background-color: #7f7f7f1f;
+    border-radius: 5px;
+    color: #1f1f1f;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

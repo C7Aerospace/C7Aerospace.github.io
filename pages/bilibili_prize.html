@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="../style/universal.css">
+    <link rel="stylesheet" href="../style/article.css">
+    <link rel="stylesheet" href="../style/code.css">
+    <script src="../scripts/universal.js"></script>
+    <title>Bilibili 抽奖程序开发 | 七碳烷烃</title>
+</head>
+<body id="body">
+
+    <div id="sideMenu">
+        <div id="sideMenu_top">
+            <img id="sideMenu_image" src="../resource/images/sidetop.png" width="100%">
+            <div id="sideMenu_topMask"></div>
+            <div id="sideMenu_picture">
+                <img src="../resource/images/a.png" width="100%">
+            </div>
+            <div id="sideMenu_name">Isoheptane</div>
+        </div>
+        <div id="sideMenu_menu">
+            <div class="sideMenu_elements" onclick="jump('../introduction.html')">
+                <div class="sideMenu_ele_bg">
+                    <div class="sideMenu_ele_text">
+                        Introduction
+                    </div>
+                </div>
+            </div>
+            <div class="sideMenu_elements" onclick="jump('../blog.html')">
+                <div class="sideMenu_ele_bg">
+                    <div class="sideMenu_ele_text">
+                        Blog
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="title">Bilibili 抽奖程序开发</div>
+        <div class="article">
+
+
+            <div class="subtitle">前言</div>
+            <hr color="#bfbfbf" size="1">
+            <p>
+                在摸出来几个播放不错的视频之后，我达到了10000粉丝。
+            </p>
+            <p>
+                此时我觉得我应该抽奖了。但是我突然意识到我换了操作系统，现有的抽奖工具没法用。而我又不想借助朋友……
+            </p>
+            <p>
+                于是，我选择自己动手。
+            </p>
+            <div class="subtitle">基本思路</div>
+            <hr color="#bfbfbf" size="1">
+            <p>
+                获取视频下方评论列表，随机抽取一位观众，检查是否为粉丝，是则放入中奖者名单中，否则继续抽取直到达到中奖人数。
+            </p>
+
+
+            <div class="subtitle">API调用</div>
+            <hr color="#bfbfbf" size="1">
+            <p>
+                本次开发使用C#和MonoDevelop。
+            </p>
+            <p>
+                首先我们创建一个函数，用于调用bilibili API。这里我们用到了<span class="code">HttpWebRequest</span>和<span class="code">HttpWebResponse</span>这两个类。
+            </p>
+            <p>
+                接下来抄代码即可:
+            </p>
+                <pre>
+<span class="codes keyword">public static string</span> HttpGet(<span class="codes keyword">string</span> url)
+{
+    <span class="codes class">HttpWebRequest</span> request = (<span class="codes class">HttpWebRequest</span>)<span class="codes class">HttpWebRequest</span>.Create(url);
+    request.Method = <span class="codes string">"GET"</span>;
+    request.ContentType = <span class="codes string">"text/plain;charset=UTF-8"</span>;
+    <span class="codes class">HttpWebResponse</span> response = (<span class="codes class">HttpWebResponse</span>)request.GetResponse();
+    <span class="codes class">Stream</span> responseStream = response.GetResponseStream();
+    <span class="codes class">StreamReader</span> reader = <span class="codes keyword">new</span> <span class="codes class">StreamReader</span>(responseStream, Encoding.GetEncoding(<span class="codes string">"utf-8"</span>));
+    <span class="codes keyword">string</span> responseString = reader.ReadToEnd();
+    reader.Close();
+    responseStream.Close();
+    <span class="codes keyword">return</span> responseString;
+}</pre>
+            <p>
+                这里使用<span class="code">HttpWebRequest</span>类对url进行请求，获取响应，响应是一个<span class="code">HttpWebResponse</span>类的对象。已经知道返回的类型数据一定是json，我们只需要将响应解析成字符串即可，同时设置请求的内容类型和编码为<span class="code">"text/plain;charset=UTF-8"</span>。
+            </p>
+            <p>
+                由于<span class="code">HttpWebResponse</span>类的响应内容是一个<span class="code">Stream</span>类对象，因此我们还要用一个<span class="code dark_class">StreamReader</span>对象来读取内容。最后关闭两个对象，返回读取到的字符串即可。
+            </p>
+            <p>
+                但我们还需要用到cookie才能获取粉丝关系信息，因此我们还需要进行修改。Bilibili使用了一个在<span class="code">bilibili.com</span>域名下一个叫做<span class="code">SESSDATA</span>的cookie来验证身份，因此我们还需要在请求中添加cookie。修改请求函数的参数为：
+            </p>
+            <pre>
+<span class="codes keyword">public static string</span> HttpGet(<span class="codes keyword">string</span> url,<span class="codes keyword">string</span> cookie)</pre>
+            <p>
+                再在请求前添加下面两行：
+            </p>
+            <pre>
+request.CookieContainer = <span class="codes keyword">new</span> <span class="codes class">CookieContainer</span>();
+request.CookieContainer.Add(<span class="codes keyword">new</span> <span class="codes class">Cookie</span>(<span class="codes string">"SESSDATA"</span>,cookie,<span class="codes string">"/"</span>,<span class="codes string">"bilibili.com"</span>));</pre>
+            <p>
+                这样即可正常地调用API了。
+            </p>
+            <p>
+                关于使用API和解析的json文件的方式与过程，我使用了<span class="code">Newtonsoft.Json.dll</span>进行解析，具体的方式可以到<a href="https://github.com/c7aerospace/BilibiliPrize">项目页面</a>查看。
+            </p>
+
+
+            <div class="subtitle">用户数据</div>
+            <hr color="#bfbfbf" size="1">
+            <p>
+                我们需要构建一个包含粉丝UID、名字、等级和评论内容以及关注情况的类：
+            </p>
+<pre>
+<span class="codes keyword">public class</span> <span class="codes class">User</span>
+{
+    <span class="codes keyword">public int</span> uid;
+    <span class="codes keyword">public string</span> name;
+    <span class="codes keyword">public int</span> level;
+    <span class="codes keyword">public</span> <span class="codes class">List</span>&lt;<span class="codes keyword">string</span>&gt; comments;
+    <span class="codes keyword">public bool</span> followed = <span class="codes keyword">false</span>; <span class="codes comments">// 你是否关注了他/她</span>
+    <span class="codes keyword">public bool</span> follower = <span class="codes keyword">false</span>; <span class="codes comments">// 他/她是否关注了你</span>
+}</pre>
+            <p>
+                结构已经很清晰明了了，接下来是构造函数和添加评论的函数：
+            </p>
+<pre>
+<span class="codes keyword">public void</span> AddComments(<span class="codes keyword">string</span> comment)
+{
+    comments.Add(comment);
+}
+<span class="codes keyword">public</span> <span class="codes class">User</span>(<span class="codes keyword">int</span> uid,<span class="codes keyword">string</span> name,<span class="codes keyword">int</span> level, <span class="codes keyword">string</span> comment)
+{
+    this.uid = uid;
+    this.name = name;
+    this.level = level;
+    comments = <span class="codes keyword">new</span> <span class="codes class">List</span>&lt;<span class="codes keyword">string</span>&gt;();
+    AddComments(comment);
+}
+</pre>
+            <p>
+                由于评论区用户一定有至少一条评论，因此可以把评论写进构造函数中，方便第一次扫描到该用户时添加评论。
+            </p>
+            <p>
+                最后，我们写一个<span class="code">ToString()</span>函数用于展示该用户的内容：
+            </p>
+<pre>
+<span class="codes keyword">public override string</span> ToString() <span class="codes comments">// 序列化评论</span>
+{
+    <span class="codes keyword">string</span> = <span class="codes keyword">string</span>.Format(<span class="codes string">"{0} [UID:{1},Level:{2}"</span>, name, uid, level); <span class="codes comments">// 这一段首先会输出基本的信息</span>
+    <span class="codes keyword">if</span> (follower)
+        ret += <span class="codes string">",Follower"</span>;
+    <span class="codes keyword">if</span> (followed)
+        ret += <span class="codes string">",Followed"</span>; <span class="codes comments">// 检查关注情况</span>
+    ret += <span class="codes string">"]"</span>;
+    <span class="codes keyword">for</span>(<span class="codes keyword">int</span> i = <span class="codes num">0</span>;i&lt;comments.Count;i++)
+    {
+        ret += <span class="codes keyword">string</span>.Format(<span class="codes string">"\n{0}:"</span>, (i + <span class="codes num">1</span>).ToString().PadLeft(<span class="codes num">4</span>));
+        <span class="codes keyword">string</span>[] commentLines = comments[i].Replace(<span class="codes string">"\\n"</span>, <span class="codes string">"\n"</span>).Split(<span class="codes string">'\n'</span>);
+        ret += <span class="codes string">"\""</span> + commentLines[<span class="codes num">0</span>];
+        <span class="codes keyword">for</span>(<span class="codes keyword">int</span> j = <span class="codes num">1</span>;j&lt;commentLines.Length;j++)
+            ret += <span class="codes string">"\n      "</span> + commentLines[j];
+    }
+    ret += <span class="codes string">"\"\n"</span>; <span class="codes comments">// 输出评论</span>
+    <span class="codes keyword">return</span> ret;
+}
+</pre>
+            <p>
+                为了保证公平性，一个用户只能在列表中出现一次，因此需要在之后的逻辑中通过uid检查列表中是否已有这个用户。
+            </p>
+            <div class="subtitle">抽奖</div>
+            <hr color="#bfbfbf" size="1">
+            <p>
+                这一段只有逻辑部分讲解：
+            </p>
+            <p>
+                首先创建一个while循环，条件是已有的中奖人数<span class="red">不等于</span>目标中奖人数。
+            </p>
+            <p>
+                在循环体中随机从用户列表中抽取一个用户，检查是否已在中奖者列表中，如果是则开始下一个循环，如果不是则继续。
+            </p>
+            <p>
+                获取关系信息，如果没有开启仅粉丝则添加该用户到中奖者列表，如果开启了仅粉丝则继续。
+            </p>
+            <p>
+                如果该用户是粉丝则添加该用户到中奖者列表，如果不是则开始下一个循环。
+            </p>
+            <div class="subtitle">最后</div>
+            <hr color="#bfbfbf" size="1">
+            <p>
+                Json数据结构的构建可费劲了，占了三分之一的文件内容不说，还一点都不美观。
+            </p>
+        </div>
+        <div id="footer">
+            Article ends here.
+            <hr color="#bfbfbf" size="1">
+            <div id="tags">
+                <a class="tag">#develop</a>
+                <a class="tag">#csharp</a>
+                <a class="tag">#bilibili</a>
+            </div>
+        </div>
+    </div>
+</body>

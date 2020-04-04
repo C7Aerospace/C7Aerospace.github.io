@@ -15,6 +15,10 @@
     font-family: '_Montserrat Thin';
     src:url("../resource/fonts/Montserrat-Thin.otf");
 }
+@font-face{
+    font-family: '_Noto Mono';
+    src:url("../resource/fonts/NotoMono-Regular.ttf");
+}
 #body{
     background-color: #fffef7;
 }
