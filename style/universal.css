@@ -151,17 +151,18 @@
     left: 0px;
     right: 0px;
     height: 200px;
-    border-bottom: 1px #bfbfbf solid;
+    /* border-bottom: 0px #bfbfbf solid; */ /* This style is deprecated because of it's terrible effects */
+    box-shadow: #3b72613f 0px 0px 0px 0px;
     overflow: hidden;
 }
 .postbox_anim{
     position: relative;
-    width: 1px;
+    width: 0px;
     height: 200px;
     left: -10px;
     top: -200px;
     background-color: #3b7261;
-    box-shadow: #3b72613f 0px 0px 20px 10px;
+    box-shadow: #3b72613f 0px 0px 0px 0px;
     transition: 0.15s;
     transition-timing-function: cubic-bezier(0.5,0.7,0.5,1);
     /*mix-blend-mode: multiply;*/
@@ -169,25 +170,27 @@
 .postbox:hover .postbox_anim{
     width: 10px;
     background-color: #3b7261;
+    box-shadow: #3b72613f 0px 0px 20px 10px;
 }
 .postbox_title{
-    margin-left: 30px;
+    padding-left: 30px;
     margin-top: 0px;
     margin-bottom: 0px;
     font-size: 42px;
     color: #3b7261;
     height: 60px;
-    text-shadow: 0px 0px 5px #0000003f;
+    text-shadow: 0px 0px 5px #0000001f;
     transition: 0.05s;
     cursor: pointer;
     user-select: none;
     font-style: normal;
     line-height: 60px;
+    transition: 0.2s;
 }
 .postbox_title:hover
 {
     color: #4b9271;
-    text-shadow: 0px 0px 5px #6bb291ff;
+    text-shadow: 0px 0px 5px #6bb2917f;
 }
 .postbox_content{
     margin-left: 30px;
